@@ -10,7 +10,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
     public function all(bool $paginate = true)
     {
-        return Category::select('id', 'name', 'notes')
+        return Category::select('id', 'name', 'notes', 'created_at', 'updated_at')
             ->orderBy('created_at', 'desc')
             ->when($paginate, function ($query) {
                 return $query->paginate(10);
