@@ -9,6 +9,11 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Modules\Products\App\Providers\EventServiceProvider;
 use Modules\Products\App\Providers\RouteServiceProvider;
+use Livewire\Livewire;
+use Modules\Products\App\Livewire\Home;
+use Modules\Products\App\Livewire\Categories\Index as CategoriesIndex;
+use Modules\Products\App\Livewire\Categories\Create as CategoriesCreate;
+use Modules\Products\App\Livewire\Categories\Edit as CategoriesEdit;
 
 class ProductsServiceProvider extends ServiceProvider
 {
@@ -29,6 +34,11 @@ class ProductsServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        Livewire::component('products::home', Home::class);
+        Livewire::component('products::categories.index', CategoriesIndex::class);
+        Livewire::component('products::categories.create', CategoriesCreate::class);
+        Livewire::component('products::categories.edit', CategoriesEdit::class);
     }
 
     /**
