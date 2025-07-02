@@ -3,17 +3,15 @@
 namespace Modules\Products\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Products\App\Models\Category;
 
-class ProductsDatabaseSeeder extends Seeder
+class CategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->call([
-            CategoriesTableSeeder::class,
-            ProductsTableSeeder::class,
-        ]);
+        Category::factory()->count(5)->create();
     }
 }

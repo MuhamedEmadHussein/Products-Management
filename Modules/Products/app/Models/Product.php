@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Products\Models;
+namespace Modules\Products\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Products\Database\Factories\ProductFactory;
+use Modules\Products\Database\Factories\ProductFactory;
 
 class Product extends Model
 {
@@ -19,9 +19,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    
-    // protected static function newFactory(): ProductFactory
-    // {
-    //     // return ProductFactory::new();
-    // }
+
+    protected static function newFactory()
+    {
+        return ProductFactory::new();
+    }
 }
