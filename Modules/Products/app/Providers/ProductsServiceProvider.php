@@ -17,6 +17,9 @@ use Modules\Products\App\Livewire\Categories\Edit as CategoriesEdit;
 use Modules\Products\App\Livewire\Products\Index as ProductsIndex;
 use Modules\Products\App\Livewire\Products\Create as ProductsCreate;
 use Modules\Products\App\Livewire\Products\Edit as ProductsEdit;
+use Modules\Products\Interfaces\EntityRepositoryInterface;
+use Modules\Products\Repositories\CategoryRepository;
+use Modules\Products\Repositories\ProductRepository;
 
 class ProductsServiceProvider extends ServiceProvider
 {

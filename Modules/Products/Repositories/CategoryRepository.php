@@ -4,8 +4,9 @@ namespace Modules\Products\Repositories;
 
 use Modules\Products\App\Models\Category;
 use Illuminate\Support\Facades\Log;
+use Modules\Products\Interfaces\CategoryRepositoryInterface;
 
-class CategoryRepository
+class CategoryRepository implements CategoryRepositoryInterface
 {
     public function all(bool $paginate = true)
     {

@@ -4,10 +4,9 @@ namespace Modules\Products\App\Livewire\Products;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Modules\Products\Repositories\ProductRepository;
-use Modules\Products\Repositories\CategoryRepository;
-use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
+use Modules\Products\Interfaces\ProductRepositoryInterface;
+use Modules\Products\Interfaces\CategoryRepositoryInterface;
 
 class Create extends Component
 {
@@ -30,7 +29,7 @@ class Create extends Component
     protected $productRepository;
     protected $categoryRepository;
 
-    public function boot(ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    public function boot(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
     {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;

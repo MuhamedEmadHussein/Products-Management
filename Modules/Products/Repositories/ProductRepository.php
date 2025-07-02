@@ -4,8 +4,9 @@ namespace Modules\Products\Repositories;
 
 use Modules\Products\App\Models\Product;
 use Illuminate\Support\Facades\Log;
+use Modules\Products\Interfaces\ProductRepositoryInterface;
 
-class ProductRepository
+class ProductRepository implements ProductRepositoryInterface
 {
     public function all(bool $paginate = true)
     {

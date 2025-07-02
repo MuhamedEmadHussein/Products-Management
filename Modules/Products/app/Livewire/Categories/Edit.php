@@ -3,7 +3,7 @@
 namespace Modules\Products\App\Livewire\Categories;
 
 use Livewire\Component;
-use Modules\Products\Repositories\CategoryRepository;
+use Modules\Products\Interfaces\CategoryRepositoryInterface;
 
 class Edit extends Component
 {
@@ -17,7 +17,7 @@ class Edit extends Component
 
     protected $categoryRepository;
 
-    public function boot(CategoryRepository $categoryRepository)
+    public function boot(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }

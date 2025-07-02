@@ -3,9 +3,8 @@
 namespace Modules\Products\App\Livewire\Categories;
 
 use Livewire\Component;
-use Modules\Products\Repositories\CategoryRepository;
 use Livewire\WithPagination;
-use Livewire\Attributes\On;
+use Modules\Products\Interfaces\CategoryRepositoryInterface;
 
 class Index extends Component
 {
@@ -15,9 +14,9 @@ class Index extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    protected CategoryRepository $categoryRepository;
+    protected  $categoryRepository;
 
-    public function boot(CategoryRepository $categoryRepository)
+    public function boot(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }
@@ -28,7 +27,6 @@ class Index extends Component
         $this->dispatch('show-delete-confirmation', categoryId: $categoryId);
     }
 
-    #[On('delete-category')]
     public function deleteCategory()
     {
         try {

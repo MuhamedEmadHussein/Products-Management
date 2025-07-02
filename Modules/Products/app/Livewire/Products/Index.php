@@ -4,8 +4,8 @@ namespace Modules\Products\App\Livewire\Products;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use Modules\Products\Repositories\ProductRepository;
 use Livewire\Attributes\On;
+use Modules\Products\Interfaces\ProductRepositoryInterface;
 
 class Index extends Component
 {
@@ -18,7 +18,7 @@ class Index extends Component
 
     protected $productRepository;
 
-    public function boot(ProductRepository $productRepository)
+    public function boot(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }

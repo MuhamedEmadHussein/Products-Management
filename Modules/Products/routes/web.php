@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Products\App\Http\Controllers\CategoryController;
 use Modules\Products\App\Http\Controllers\ProductController;
-    
+
 Route::prefix('categories')->name('categories.')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('index');
     Route::get('/create', [CategoryController::class, 'create'])->name('create');
