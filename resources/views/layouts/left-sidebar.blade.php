@@ -30,7 +30,7 @@
                 </li>
 
                 <li class="nxl-item nxl-hasmenu">
-                    <a href="#" class="nxl-link">
+                    <a href="{{ route('products.index') }}" class="nxl-link">
                         <span class="nxl-micon"><img src="{{ asset('assets/images/product.png') }}" alt="" style="height: 20px;"></span>
                         <span class="nxl-mtext">Products</span>
                     </a>

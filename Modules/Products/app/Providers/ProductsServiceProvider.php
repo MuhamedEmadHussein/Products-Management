@@ -14,6 +14,9 @@ use Modules\Products\App\Livewire\Home;
 use Modules\Products\App\Livewire\Categories\Index as CategoriesIndex;
 use Modules\Products\App\Livewire\Categories\Create as CategoriesCreate;
 use Modules\Products\App\Livewire\Categories\Edit as CategoriesEdit;
+use Modules\Products\App\Livewire\Products\Index as ProductsIndex;
+use Modules\Products\App\Livewire\Products\Create as ProductsCreate;
+use Modules\Products\App\Livewire\Products\Edit as ProductsEdit;
 
 class ProductsServiceProvider extends ServiceProvider
 {
@@ -39,6 +42,10 @@ class ProductsServiceProvider extends ServiceProvider
         Livewire::component('products::categories.index', CategoriesIndex::class);
         Livewire::component('products::categories.create', CategoriesCreate::class);
         Livewire::component('products::categories.edit', CategoriesEdit::class);
+
+        Livewire::component('products::products.index', ProductsIndex::class);
+        Livewire::component('products::products.create', ProductsCreate::class);
+        Livewire::component('products::products.edit', ProductsEdit::class);
     }
 
     /**

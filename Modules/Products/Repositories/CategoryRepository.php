@@ -7,11 +7,15 @@ use Illuminate\Support\Facades\Log;
 
 class CategoryRepository
 {
-    public function all()
+    public function all(bool $paginate = true)
     {
-        // Log Here
-        Log::info('Fetching all categories');
-        return Category::select('id', 'name', 'notes')->paginate(10);
+        return Category::select('id', 'name', 'notes')
+            ->orderBy('created_at', 'desc')
+            ->when($paginate, function ($query) {
+                return $query->paginate(10);
+            }, function ($query) {
+                return $query->get();
+            });
     }
 
     public function find($id)
