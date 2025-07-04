@@ -39,36 +39,11 @@
             <!--! [Start] Header Right !-->
             <div class="header-right ms-auto">
                 <div class="d-flex align-items-center">
-                    {{-- <div class="dropdown nxl-h-item nxl-header-language d-none d-sm-flex">
-                        <a href="javascript:void(0);" class="nxl-head-link me-0 nxl-language-link" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                            <img src="{{ asset('assets/vendors/img/flags/4x3/us.svg') }}" alt="" class="img-fluid wd-20" />
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-language-dropdown">
-                            <div class="dropdown-divider mt-0"></div>
-                            <div class="language-items-wrapper">
-                                <div class="select-language px-4 py-2 hstack justify-content-between gap-4">
-                                    <div class="lh-lg">
-                                        <h6 class="mb-0">Select Language</h6>
-                                    </div>
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <div class="row px-4 pt-3">
-                                    <div class="col-sm-6 col-6 language_select">
-                                        <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
-                                            <div class="avatar-image avatar-sm"><img src="{{ asset('assets/vendors/img/flags/1x1/sa.svg') }}" alt="" class="img-fluid" /></div>
-                                            <span>Arabic</span>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-6 col-6 language_select active">
-                                        <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
-                                            <div class="avatar-image avatar-sm"><img src="{{ asset('assets/vendors/img/flags/1x1/us.svg') }}" alt="" class="img-fluid" /></div>
-                                            <span>English</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
+                    
+                    <!--! [Start] Language Switcher from Products Module !-->
+                    <livewire:products::language-switcher />
+                    <!--! [End] Language Switcher from Products Module !-->
+
                     <div class="nxl-h-item d-none d-sm-flex">
                         <div class="full-screen-switcher">
                             <a href="javascript:void(0);" class="nxl-head-link me-0" onclick="$('body').fullScreenHelper('toggle');">

@@ -10,7 +10,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
     public function all(bool $paginate = true)
     {
-        return Category::select('id', 'name', 'notes', 'created_at', 'updated_at')
+        return Category::with('translations')
             ->orderBy('created_at', 'desc')
             ->when($paginate, function ($query) {
                 return $query->paginate(10);
@@ -21,27 +21,40 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function find($id)
     {
-        // Log Here
-        Log::info('Finding category ID: ' . $id);
-        return Category::findOrFail($id);
+        return Category::with('translations')->findOrFail($id);
     }
 
     public function create(array $data)
     {
-        // Log Here
-        Log::info('Creating category with data: ' . json_encode($data));
-        $category = Category::create($data);
-        Log::info('Category created: ' . json_encode($category));
+        
+        // Create the category
+        $category = new Category();
+        $category->save();
+        
+        // Add translations
+        foreach ($data as $locale => $attributes) {
+            $category->translateOrNew($locale)->name = $attributes['name'];
+            $category->translateOrNew($locale)->notes = $attributes['notes'] ?? null;
+        }
+        
+        $category->save();
+        
+        Log::info('Category created: ' . json_encode($category->toArray()));
         return $category;
     }
 
     public function update($id, array $data)
     {
-        // Log Here
-        Log::info('Updating category ID: ' . $id);
         $category = $this->find($id);
-        $category->update($data);
-        Log::info('Category updated: ' . json_encode($category));
+        
+        // Update translations
+        foreach ($data as $locale => $attributes) {
+            $category->translateOrNew($locale)->name = $attributes['name'];
+            $category->translateOrNew($locale)->notes = $attributes['notes'] ?? null;
+        }
+        
+        $category->save();
+        
         return $category;
     }
 

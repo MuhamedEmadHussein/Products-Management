@@ -15,12 +15,39 @@ class Index extends Component
 
     public $showDeleteConfirmation = false;
     public $deleteProductId;
+    public $locale;
+    public $availableLocales = [];
+    public $translations = [];
 
     protected $productRepository;
 
+    protected $listeners = ['localeChanged' => 'updateLocale'];
+    
     public function boot(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
+    }
+
+    public function mount()
+    {
+        $this->locale = app()->getLocale();
+        $this->availableLocales = config('app.available_locales', ['en']);    
+    }
+
+    public function setLocale($locale)
+    {
+        if (in_array($locale, $this->availableLocales)) {
+            $this->locale = $locale;
+            app()->setLocale($locale);
+            session()->put('locale', $locale);
+            $this->resetPage();
+        }
+    }
+
+    public function updateLocale($event)
+    {
+        $this->setLocale($event);
+        $this->resetPage();
     }
 
     public function confirmDelete($id)
@@ -40,9 +67,10 @@ class Index extends Component
             session()->flash('error', 'Failed to delete product: ' . $e->getMessage());
         }
     }
+    
     public function render()
     {
         $products = $this->productRepository->all();
-        return view('products::livewire.products.index',compact('products'));
+        return view('products::livewire.products.index', compact('products'));
     }
 }

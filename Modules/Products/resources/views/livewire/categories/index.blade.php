@@ -7,24 +7,29 @@
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <p>Loading...</p>
+                <p>{{ __('Loading...') }}</p>
             </div>
 
             <!-- Page Header -->
             <div class="page-header">
                 <div class="page-header-left d-flex align-items-center">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Categories</h5>
+                        <h5 class="m-b-10">{{ __('Categories') }}</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item">Categories</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Home') }}</a></li>
+                        <li class="breadcrumb-item">{{ __('Categories') }}</li>
                     </ul>
                 </div>
-                <div class="page-header-right ms-auto">
+                <div class="page-header-right ms-auto d-flex align-items-center">
+                    {{-- <select wire:model="locale" wire:change="setLocale($event.target.value)" class="form-select me-3">
+                        @foreach (config('translatable.locales', ['en']) as $locale)
+                            <option value="{{ $locale }}">{{ strtoupper($locale) }}</option>
+                        @endforeach
+                    </select> --}}
                     <a href="{{ route('categories.create') }}" class="btn btn-primary">
                         <i class="feather-plus me-2"></i>
-                        <span>Create Category</span>
+                        <span>{{ __('Create Category') }}</span>
                     </a>
                 </div>
             </div>
@@ -54,9 +59,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Name</th>
-                                        <th>Notes</th>
-                                        <th class="text-end">Actions</th>
+                                        <th>{{ __('Name') }}</th>
+                                        <th>{{ __('Notes') }}</th>
+                                        <th class="text-end">{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,7 +69,7 @@
                                         <tr>
                                             <td>{{ $category->id }}</td>
                                             <td>{{ $category->name }}</td>
-                                            <td>{{ $category->notes ?? 'N/A' }}</td>
+                                            <td>{{ $category->notes ?? __('N/A') }}</td>
                                             <td class="text-end">
                                                 <div class="hstack gap-2 justify-content-end">
                                                     <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-primary">
@@ -78,18 +83,44 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center">No categories found.</td>
+                                            <td colspan="4" class="text-center">{{ __('No categories found.') }}</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                         </div>
                         <div class="mt-3">
-                            {{ $categories->links() }}
+                            {{ $categories->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('show-delete-confirmation', (event) => {
+                Swal.fire({
+                    title: '{{ __('Are you sure?') }}',
+                    text: "{{ __('You won\'t be able to revert this!') }}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '{{ __('Yes, delete it!') }}',
+                    cancelButtonText: '{{ __('Cancel') }}'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('delete-category');
+                        Swal.fire(
+                            '{{ __('Deleted!') }}',
+                            '{{ __('The category has been deleted.') }}',
+                            'success'
+                        );
+                    }
+                });
+            });
+        });
+    </script>
 </div>

@@ -10,33 +10,11 @@
                 <img src="{{ asset('assets/images/product2.png') }}" alt="" class="logo logo-sm" />
             </a>
         </div>
-        <div class="navbar-content">
-            <ul class="nxl-navbar">
-                <li class="nxl-item nxl-caption">
-                    <label>Product Management</label>
-                </li>
-                <li class="nxl-item nxl-hasmenu">
-                    <a href="{{ route('dashboard') }}" class="nxl-link">
-                        <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                        <span class="nxl-mtext">Home</span>
-                    </a>
-                </li>
 
-                <li class="nxl-item nxl-hasmenu">
-                    <a href="{{ route('categories.index') }}" class="nxl-link">
-                        <span class="nxl-micon"><img src="{{ asset('assets/images/text.svg') }}" alt="" style="height: 20px;"></span>
-                        <span class="nxl-mtext">Categories</span>
-                    </a>
-                </li>
-
-                <li class="nxl-item nxl-hasmenu">
-                    <a href="{{ route('products.index') }}" class="nxl-link">
-                        <span class="nxl-micon"><img src="{{ asset('assets/images/product.png') }}" alt="" style="height: 20px;"></span>
-                        <span class="nxl-mtext">Products</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <!--! [Start] Sidebar from App Module !-->
+        <livewire:sidebar />
+        <!--! [End] Sidebar from App Module !-->
+        
     </div>
 </nav>
 <!--! ================================================================ !-->

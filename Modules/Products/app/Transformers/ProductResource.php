@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'notes' => $this->notes,
             'status' => $this->status ? 'Active' : 'Inactive',
+            'translations' => $this->getTranslations(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

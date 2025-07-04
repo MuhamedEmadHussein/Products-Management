@@ -37,18 +37,34 @@ class ProductController extends Controller
         try {
             $data = $request->validated();
             
+            // Extract non-translatable attributes
+            $productData = [
+                'category_id' => $data['category_id'],
+                'price' => $data['price'],
+                'stock' => $data['stock'],
+                'status' => $data['status'],
+            ];
+            
+            // Handle image upload
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = 'products/' . $imageName;
                 Storage::disk('public')->putFileAs('products', $image, $imageName);
-                $data['image'] = $imagePath;
+                $productData['image'] = $imagePath;
+            }
+            
+            // Format translations
+            foreach (config('app.available_locales', ['en']) as $locale) {
+                if (isset($data[$locale])) {
+                    $productData[$locale] = $data[$locale];
+                }
             }
 
-            $product = $this->productRepository->create($data);
+            $product = $this->productRepository->create($productData);
             return new ProductResource($product);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to create product'], 500);
+            return response()->json(['error' => 'Failed to create product: ' . $e->getMessage()], 500);
         }
     }
 
@@ -57,7 +73,6 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
         try {
             $product = $this->productRepository->find($id);
             return new ProductResource($product);
@@ -73,6 +88,16 @@ class ProductController extends Controller
     {
         try {
             $data = $request->validated();
+            
+            // Extract non-translatable attributes
+            $productData = [
+                'category_id' => $data['category_id'],
+                'price' => $data['price'],
+                'stock' => $data['stock'],
+                'status' => $data['status'],
+            ];
+            
+            // Handle image upload
             if ($request->hasFile('image')) {
                 $product = $this->productRepository->find($id);
                 if ($product->image) {
@@ -83,13 +108,20 @@ class ProductController extends Controller
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = 'products/' . $imageName;
                 Storage::disk('public')->putFileAs('products', $image, $imageName);
-                $data['image'] = $imagePath;
+                $productData['image'] = $imagePath;
+            }
+            
+            // Format translations
+            foreach (config('app.available_locales', ['en']) as $locale) {
+                if (isset($data[$locale])) {
+                    $productData[$locale] = $data[$locale];
+                }
             }
 
-            $product = $this->productRepository->update($id, $data);
+            $product = $this->productRepository->update($id, $productData);
             return new ProductResource($product);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to update product'], 500);
+            return response()->json(['error' => 'Failed to update product: ' . $e->getMessage()], 500);
         }
     }
 

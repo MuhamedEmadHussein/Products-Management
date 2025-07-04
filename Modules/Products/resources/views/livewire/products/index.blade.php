@@ -14,16 +14,16 @@
             <div class="page-header">
                 <div class="page-header-left d-flex align-items-center justify-content-between">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Product List</h5>
+                        <h5 class="m-b-10">{{ __('Product List') }}</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item">Products</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Home') }}</a></li>
+                        <li class="breadcrumb-item">{{ __('Products') }}</li>
                     </ul>
                 </div>
                 <div class="page-header-right ms-auto">
                     <a href="{{ route('products.create') }}" class="btn btn-primary">
-                        <i class="feather-plus me-2"></i> Add Product
+                        <i class="feather-plus me-2"></i> {{ __('Add Product') }}
                     </a>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     <div class="col-lg-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
-                                <h5 class="card-title">Product List</h5>
+                                <h5 class="card-title">{{ __('Product List') }}</h5>
                                 <div class="card-header-action">
                                     <div class="card-header-btn">
                                         <div data-bs-toggle="tooltip" title="Refresh">
@@ -67,16 +67,15 @@
                                     <table class="table table-hover mb-0">
                                         <thead>
                                             <tr>
-                                                <th>Image</th>
-                                                <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Price</th>
-                                                <th>Stock</th>
-                                                <th>Description</th>
-                                                <th>Notes</th>
-                                                <th>Status</th>
-                                                <th>Created At</th>
-                                                <th class="text-end">Actions</th>
+                                                <th>{{ __('Image') }}</th>
+                                                <th>{{ __('Category') }}</th>
+                                                <th>{{ __('Price') }}</th>
+                                                <th>{{ __('Stock') }}</th>
+                                                <th>{{ __('Description') }}</th>
+                                                <th>{{ __('Notes') }}</th>
+                                                <th>{{ __('Status') }}</th>
+                                                <th>{{ __('Created At') }}</th>
+                                                <th class="text-end">{{ __('Actions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -96,7 +95,6 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{ Str::limit($product->name, 50) }}</td>
                                                     <td>{{ $product->category->name }}</td>
                                                     <td>${{ number_format($product->price, 2) }}</td>
                                                     <td>{{ $product->stock }}</td>

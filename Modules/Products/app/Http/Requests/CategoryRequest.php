@@ -11,10 +11,15 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:255',
-            'notes' => 'nullable|string',
-        ];
+        $rules = [];
+        $locales = config('app.available_locales', ['en']);
+        
+        foreach ($locales as $locale) {
+            $rules[$locale.'.name'] = 'required|string|max:255';
+            $rules[$locale.'.notes'] = 'nullable|string';
+        }
+        
+        return $rules;
     }
 
     /**

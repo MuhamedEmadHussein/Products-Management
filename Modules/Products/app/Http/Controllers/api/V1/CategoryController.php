@@ -20,7 +20,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
         try {
             $categories = $this->categoryRepository->all();
             return CategoryResource::collection($categories);
@@ -36,10 +35,19 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->validated();
-            $category = $this->categoryRepository->create($data);
+            
+            // Format data for repository
+            $formattedData = [];
+            foreach (config('app.available_locales', ['en']) as $locale) {
+                if (isset($data[$locale])) {
+                    $formattedData[$locale] = $data[$locale];
+                }
+            }
+            
+            $category = $this->categoryRepository->create($formattedData);
             return new CategoryResource($category);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to create category'], 500);
+            return response()->json(['error' => 'Failed to create category: ' . $e->getMessage()], 500);
         }
     }
 
@@ -48,7 +56,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
         try {
             $category = $this->categoryRepository->find($id);
             return new CategoryResource($category);
@@ -64,10 +71,19 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->validated();
-            $category = $this->categoryRepository->update($id, $data);
+            
+            // Format data for repository
+            $formattedData = [];
+            foreach (config('app.available_locales', ['en']) as $locale) {
+                if (isset($data[$locale])) {
+                    $formattedData[$locale] = $data[$locale];
+                }
+            }
+            
+            $category = $this->categoryRepository->update($id, $formattedData);
             return new CategoryResource($category);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to update category'], 500);
+            return response()->json(['error' => 'Failed to update category: ' . $e->getMessage()], 500);
         }
     }
 

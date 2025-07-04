@@ -11,14 +11,31 @@ class Index extends Component
     use WithPagination;
 
     public $deleteCategoryId;
+    public $locale;
 
     protected $paginationTheme = 'bootstrap';
-
-    protected  $categoryRepository;
+    protected $categoryRepository;
+    
+    protected $listeners = ['delete-category' => 'deleteCategory', 'localeChanged' => 'updateLocale'];
 
     public function boot(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
+    }
+
+    public function mount()
+    {
+        $this->locale = app()->getLocale();
+    }
+
+    public function updateLocale($event)
+    {
+        if (in_array($event, config('app.available_locales', ['en']))) {
+            app()->setLocale($event);
+            session()->put('locale', $event);
+            $this->locale = $event;
+            $this->resetPage();
+        }
     }
 
     public function confirmDelete($categoryId)
@@ -32,11 +49,11 @@ class Index extends Component
         try {
             if ($this->deleteCategoryId) {
                 $this->categoryRepository->delete($this->deleteCategoryId);
-                session()->flash('success', 'Category deleted successfully');
                 $this->deleteCategoryId = null;
+                session()->flash('success', __('Category deleted successfully'));
             }
         } catch (\Exception $e) {
-            session()->flash('error', 'Failed to delete category: ' . $e->getMessage());
+            session()->flash('error', __('Failed to delete category: ') . $e->getMessage());
         }
     }
 
@@ -45,5 +62,4 @@ class Index extends Component
         $categories = $this->categoryRepository->all();
         return view('products::livewire.categories.index', compact('categories'));
     }
-
 }
