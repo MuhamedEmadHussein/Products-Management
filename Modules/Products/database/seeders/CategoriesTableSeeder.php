@@ -12,6 +12,14 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create 5 categories with English translations
         Category::factory()->count(5)->create();
+        
+        // Add Arabic translations to existing categories
+        Category::all()->each(function ($category) {
+            $category->translateOrNew('ar')->name = 'فئة ' . $category->id;
+            $category->translateOrNew('ar')->notes = 'ملاحظات للفئة ' . $category->id;
+            $category->save();
+        });
     }
 }

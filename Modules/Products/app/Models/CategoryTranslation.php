@@ -4,7 +4,7 @@ namespace Modules\Products\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Products\Database\Factories\CategoryTranslationFactory;
+use Modules\Products\Database\Factories\CategoryTranslationFactory;
 
 class CategoryTranslation extends Model
 {
@@ -17,8 +17,8 @@ class CategoryTranslation extends Model
     protected $table = 'category_translations';
     public $timestamps = true;
 
-    // protected static function newFactory(): CategoryTranslationFactory
-    // {
-    //     // return CategoryTranslationFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return CategoryTranslationFactory::new();
+    }
 }

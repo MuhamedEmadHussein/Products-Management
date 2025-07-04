@@ -20,14 +20,24 @@ class ProductFactory extends Factory
     {
         return [
             'category_id' => Category::factory(),
-            'name' => $this->faker->name,
             'price' => $this->faker->randomFloat(2, 0, 1000),
             'stock' => $this->faker->numberBetween(0, 100),
             'image' => $this->faker->imageUrl(),
-            'description' => $this->faker->paragraph,
-            'notes' => $this->faker->sentence,
             'status' => $this->faker->boolean,
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Product $product) {
+            $product->translateOrNew('en')->name = $this->faker->name;
+            $product->translateOrNew('en')->description = $this->faker->paragraph;
+            $product->translateOrNew('en')->notes = $this->faker->sentence;
+            $product->save();
+        });
     }
 }
 

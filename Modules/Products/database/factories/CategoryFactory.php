@@ -17,10 +17,19 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'name' => $this->faker->word,
-            'notes' => $this->faker->sentence,
-        ];
+        return [];
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Category $category) {
+            $category->translateOrNew('en')->name = $this->faker->word;
+            $category->translateOrNew('en')->notes = $this->faker->sentence;
+            $category->save();
+        });
     }
 }
 

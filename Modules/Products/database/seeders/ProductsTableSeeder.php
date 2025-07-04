@@ -12,6 +12,15 @@ class ProductsTableSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create 20 products with English translations
         Product::factory()->count(20)->create();
+        
+        // Add Arabic translations to existing products
+        Product::all()->each(function ($product) {
+            $product->translateOrNew('ar')->name = 'منتج ' . $product->id;
+            $product->translateOrNew('ar')->description = 'وصف المنتج ' . $product->id;
+            $product->translateOrNew('ar')->notes = 'ملاحظات للمنتج ' . $product->id;
+            $product->save();
+        });
     }
 }
