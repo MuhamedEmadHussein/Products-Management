@@ -66,9 +66,7 @@ class ProductsServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-        $this->commands([
-            TestTranslatableSeeder::class,
-        ]);
+        // $this->commands([]);
     }
 
     /**
